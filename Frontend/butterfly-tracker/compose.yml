@@ -1,0 +1,16 @@
+services:
+  butterfly-tracker:
+    build:
+      dockerfile: Dockerfile
+    expose:
+    - "4000"
+    - "3000"
+    environment:
+      MONGO_URL: "${MONGO_URL:-mongodb://${MONGODB_ADVERTISED_HOSTNAME:-mongodb}/butterflytracker}"
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGODB_ADVERTISED_HOSTNAME: ${MONGODB_ADVERTISED_HOSTNAME:-mongodb}
+      ALLOW_EMPTY_PASSWORD: ${ALLOW_EMPTY_PASSWORD:-yes}
