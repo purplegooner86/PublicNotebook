@@ -51,7 +51,16 @@ ENV LC_ALL=en_US.UTF-8
 
 RUN useradd -m builder && echo 'builder ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER builder
+
+WORKDIR /resources
+
+COPY poky.tar.gz .
+COPY linux-yocto-4.4.tar.gz .
+COPY yocto-kernel-cache.tar.gz .
+COPY good_local.conf .
+COPY build_commands.sh .
+COPY macrod_4.4_recipe.bb .
+
 WORKDIR /workspace
 
 CMD ["/bin/bash"]
-
